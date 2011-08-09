@@ -10,7 +10,15 @@ var
 // Until then, use console.log from npm (https://gist.github.com/1077544)
 require('../deps/console.log');
 
-require.paths.push(process.cwd());
+var paths = null;
+try {
+    paths = require.paths;
+} catch (e) {
+    console.log("NO require.paths -- using require.main.paths");
+    paths = require.main.paths;
+}
+
+paths.push(process.cwd());
 var args = process.ARGV.slice(2);
 
 var files = [];
